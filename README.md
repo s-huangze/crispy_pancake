@@ -10,6 +10,15 @@ The goal of this project is to practice using:
 - Conditional statements
 - User input
 - The `random` module in Python
+- ---
+
+## Learning Objectives
+By completing this project, you’ll:
+- Practice designing loops and conditionals
+- Learn to handle user input safely
+- Understand how random number generation works
+- Improve problem-solving and debugging skills
+
 
 When the player enters a guess, the program tells them whether the guess is too high, too low, or correct. It also counts how many tries it took to get the right answer.
 
@@ -105,7 +114,7 @@ If you’d like to make this project better:
 ---
 
 ## Author
-Created by **David Zhang** for learning and practicing Python basics.
+Created by **Zelin Huang** for learning and practicing Python basics.
 
 ---
 
