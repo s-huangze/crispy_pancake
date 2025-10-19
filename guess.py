@@ -46,13 +46,21 @@ def choose_difficulty():
         return 1, 50
 
 def main():
-    """Main game loop with difficulty selection."""
+    """Main game loop with difficulty selection and summaries."""
+    total_games = 0
+    total_tries = 0
     while True:
         low, high = choose_difficulty()
-        play_once(low, high)
+        tries = play_once(low, high)
+        total_games += 1
+        total_tries += tries
+        print(f"Game summary: You took {tries} tries this round. Total games played: {total_games}.")
+        avg = total_tries / total_games
+        print(f"Average tries per game: {avg:.1f}")
+
         again = input("Play again? (y/n): ").strip().lower()
         if again not in ("y", "yes"):
-            print("Thanks for playing!")
+            print(f"Thanks for playing! Final average: {avg:.1f} tries over {total_games} game(s).")
             break
 
 if __name__ == "__main__":
