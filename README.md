@@ -105,7 +105,7 @@ If you’d like to make this project better:
 ---
 
 ## Author
-Created by **Zelin Huang** for learning and practicing Python basics.
+Created by **David Zhang** for learning and practicing Python basics.
 
 ---
 
