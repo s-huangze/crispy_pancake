@@ -30,10 +30,26 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
             print(f"Correct! You got it in {tries} tries.")
             return tries
 
+def choose_difficulty():
+    """Ask the user to choose a difficulty level."""
+    print("Choose difficulty: Easy (E), Medium (M), or Hard (H)")
+    choice = input("Your choice: ").strip().lower()
+
+    if choice in ("e", "easy"):
+        return 1, 10
+    elif choice in ("m", "medium"):
+        return 1, 50
+    elif choice in ("h", "hard"):
+        return 1, 100
+    else:
+        print("Invalid choice — defaulting to Medium.")
+        return 1, 50
+
 def main():
-    """Main game loop."""
+    """Main game loop with difficulty selection."""
     while True:
-        play_once(LOW, HIGH)
+        low, high = choose_difficulty()
+        play_once(low, high)
         again = input("Play again? (y/n): ").strip().lower()
         if again not in ("y", "yes"):
             print("Thanks for playing!")
