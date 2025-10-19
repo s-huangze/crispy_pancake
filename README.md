@@ -31,6 +31,12 @@ When the player enters a guess, the program tells them whether the guess is too 
 - Lets you play again without restarting the program  
 - Adjustable number range  
 
+
+## Tips for Players
+- Start near the middle of the range to narrow your guesses quickly  
+- Use the “Very Close” hints to adjust efficiently  
+- Try Hard mode for more challenge  
+- If you get stuck, use the quit command to see the answer
 ---
 
 ## Requirements
