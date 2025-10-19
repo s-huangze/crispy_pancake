@@ -1,6 +1,7 @@
 import random
 
 LOW, HIGH = 1, 100
+MAX_TRIES = 7  # New limit added here
 
 def read_int(prompt: str) -> int:
     """Ask until user enters a valid number."""
@@ -13,15 +14,24 @@ def read_int(prompt: str) -> int:
 def play_once(low: int = LOW, high: int = HIGH) -> int:
     """Play one round of the guessing game."""
     secret = random.randint(low, high)
-    print(f"I'm thinking of a number between {low} and {high}.")
+    print(f"I'm thinking of a number between {low} and {high}. You have {MAX_TRIES} attempts.")
     tries = 0
 
-    while True:
+    while tries < MAX_TRIES:
         guess = read_int("Your guess: ")
         tries += 1
         if guess < low or guess > high:
             print(f"Out of range! Guess between {low} and {high}.")
             continue
+
+        diff = abs(guess - secret)
+        if diff <= 3:
+            print("🔥 Very close!")
+        elif diff <= 10:
+            print("🙂 Close!")
+        else:
+            print("❄️ Way off!")
+
         if guess < secret:
             print("Too low!")
         elif guess > secret:
@@ -29,6 +39,9 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
         else:
             print(f"Correct! You got it in {tries} tries.")
             return tries
+
+    print(f"Out of attempts! The correct number was {secret}.")
+    return tries
 
 def choose_difficulty():
     """Ask the user to choose a difficulty level."""
