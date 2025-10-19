@@ -119,6 +119,11 @@ If you’d like to make this project better:
 
 ---
 
+## Future Plans
+- Add graphical interface using Tkinter
+- Add leaderboard
+- Port to web using Flask
+
 ## Author
 Created by **Zelin Huang** for learning and practicing Python basics.
 
