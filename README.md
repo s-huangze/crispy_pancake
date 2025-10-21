@@ -112,7 +112,16 @@ Change them to any range you want (for example, 1–1000).
 - Conditional statements decide whether each guess is too high, too low, or correct.  
 - Extra feedback like “Very close!” is based on how far the guess is from the secret number.
 ---
-
+## Example Difficulty Levels
+You can modify `MAX_TRIES` to make the game easier or harder:
+- **Easy Mode:** `MAX_TRIES = 10`
+- **Normal Mode:** `MAX_TRIES = 7`
+- **Hard Mode:** `MAX_TRIES = 5`
+ 
+Try adjusting the range too:
+```python
+LOW, HIGH = 1, 50   # Short range for quick games
+LOW, HIGH = 1, 1000 # Long range for challenge
 ## How to Contribute
 If you’d like to make this project better:
 1. **Fork** this repository on GitHub  
