@@ -1,4 +1,8 @@
 def play_once(low: int = LOW, high: int = HIGH) -> int:
+    
+LOW = 0
+HIGH = 100
+MAX_TRIES = 20
 
     # Makes sure the range between low and high is valid to prevent errors
     if low > high:
@@ -86,4 +90,5 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
         print(f"Out of attempts! The correct number was {secret}.")
 
     return tries # returns the total number of tries it took to guess the secret number
+
 
