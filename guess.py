@@ -1,28 +1,21 @@
+# Global variable to track high score
+HIGH_SCORE = None  # Stores the fewest number of tries so far
+
 def play_once(low: int = LOW, high: int = HIGH) -> int:
     """Play one round of the guessing game. Returns number of tries this round."""
     """The player tries to guess a randomly selected number between the parameters `low` and `high`.
     Returns the number of attempts the player took to guess correctly or to give up."""
 
-    # --- Step 2: Difficulty selection ---
-    DIFFICULTIES = {
-        "easy": (1, 50, 10),
-        "medium": (1, 100, 7),
-        "hard": (1, 200, 5)
-    }
-    choice = input("Choose difficulty (easy, medium, hard): ").lower()
-    low, high, max_tries = DIFFICULTIES.get(choice, (low, high, MAX_TRIES))
-    # --------------------------------------
-
     secret = random.randint(low, high)
     # Displays the game intro line (colored if c() exists)
     try:
-        print(c(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts. (Type 'q' to give up)", "96"))
+        print(c(f"I'm thinking of a number between {low} and {high}. You have {MAX_TRIES} attempts. (Type 'q' to give up)", "96"))
     except NameError:
-        print(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts.")
+        print(f"I'm thinking of a number between {low} and {high}. You have {MAX_TRIES} attempts.")
 
     tries = 0
     # Continues looping guesses until the player runs out of attempts
-    while tries < max_tries:
+    while tries < MAX_TRIES:
         result = read_int("Your guess: ")   # may be int or None if user typed 'q'
         # Handles user quitting the game
         if result is None:
@@ -76,12 +69,20 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
                 print(c(f"Correct! You got it in {tries} tries.", "92"))  # green
             except NameError:
                 print(f"Correct! You got it in {tries} tries.")
+
+            # --- Step 3: High Score Tracking ---
+            global HIGH_SCORE
+            if HIGH_SCORE is None or tries < HIGH_SCORE:
+                HIGH_SCORE = tries
+                print(f"🎉 New high score: {HIGH_SCORE} tries!")
+            else:
+                print(f"Current high score: {HIGH_SCORE} tries")
+            # -----------------------------------
+
             return tries
 
     # Out of attempts
     try:
         print(c(f"Out of attempts! The correct number was {secret}.", "91"))  # red
     except NameError:
-        print(f"Out of attempts! The correct number was {secret}.")
-
-    return tries # returns the total number of tries it took to guess the secret number
+        prin
