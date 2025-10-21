@@ -98,6 +98,12 @@ Change them to any range you want (for example, 1–1000).
 - Add sound or color feedback for fun
 
 ---
+## Troubleshooting
+If the game doesn’t run correctly:
+- Make sure you have **Python 3.11 or newer** installed  
+- Check that you are running the command in the correct folder:
+  ```bash
+  python guess.py
 
 ## How to Contribute
 If you’d like to make this project better:
