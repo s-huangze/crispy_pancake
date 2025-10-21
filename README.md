@@ -65,8 +65,12 @@ py --version
    ```bash
    py guess.py
    ```
-
----
+## How to Play
+1. Run the game in your terminal or IDE.
+2. The computer will pick a secret number between the given range.
+3. Enter your guesses until you find the correct number.
+4. The game will give you hints like “Too high!” or “Very close!”.
+5. You can type `q` anytime to give up and see the correct answer.---
 
 ## Example Output
 ```
@@ -80,6 +84,12 @@ Correct! You got it in 3 tries.
 ```
 
 ---
+## Code Structure
+- `guess.py` – main game file  
+- `play_once()` – runs a single round of the game  
+- `read_int()` – safely reads user input  
+- Constants like `LOW`, `HIGH`, and `MAX_TRIES` control game difficulty  
+- Optional color helper `c()` adds colorful text output (if available)
 
 ## How to Change the Range
 In the file `guess.py`, you can edit these two variables:
@@ -96,7 +106,11 @@ Change them to any range you want (for example, 1–1000).
 - Show how close the guess is (e.g., "very close" or "way off")
 - Limit the number of attempts
 - Add sound or color feedback for fun
-
+## Behind the Scenes
+- The game uses Python’s built-in `random` module to generate the secret number.  
+- A loop keeps asking for guesses until the player wins or runs out of attempts.  
+- Conditional statements decide whether each guess is too high, too low, or correct.  
+- Extra feedback like “Very close!” is based on how far the guess is from the secret number.
 ---
 ## Troubleshooting
 If the game doesn’t run correctly:
@@ -105,6 +119,16 @@ If the game doesn’t run correctly:
   ```bash
   python guess.py
 
+## Example Difficulty Levels
+You can modify `MAX_TRIES` to make the game easier or harder:
+- **Easy Mode:** `MAX_TRIES = 10`
+- **Normal Mode:** `MAX_TRIES = 7`
+- **Hard Mode:** `MAX_TRIES = 5`
+ 
+Try adjusting the range too:
+```python
+LOW, HIGH = 1, 50   # Short range for quick games
+LOW, HIGH = 1, 1000 # Long range for challenge
 ## How to Contribute
 If you’d like to make this project better:
 1. **Fork** this repository on GitHub  
