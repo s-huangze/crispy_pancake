@@ -112,6 +112,13 @@ Change them to any range you want (for example, 1–1000).
 - Conditional statements decide whether each guess is too high, too low, or correct.  
 - Extra feedback like “Very close!” is based on how far the guess is from the secret number.
 ---
+## Troubleshooting
+If the game doesn’t run correctly:
+- Make sure you have **Python 3.11 or newer** installed  
+- Check that you are running the command in the correct folder:
+  ```bash
+  python guess.py
+
 ## Example Difficulty Levels
 You can modify `MAX_TRIES` to make the game easier or harder:
 - **Easy Mode:** `MAX_TRIES = 10`
