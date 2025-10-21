@@ -1,68 +1,87 @@
-import random
-
-# Example constants (replace with your actual values)
-LOW, HIGH = 1, 100
-MAX_TRIES = 7
-
-# Helper function for colored printing
-def color_print(msg: str, color: str):
-    """Prints a message in color if the 'c()' function exists."""
-    try:
-        print(c(msg, color))
-    except NameError:
-        print(msg)
-
-# Example read_int function
-def read_int(prompt: str):
-    """Prompts user for input and returns an integer, or None if 'q' is entered."""
-    user_input = input(prompt)
-    if user_input.lower() == "q":
-        return None
-    try:
-        return int(user_input)
-    except ValueError:
-        print("Invalid input! Enter a number or 'q' to quit.")
-        return read_int(prompt)
-
 def play_once(low: int = LOW, high: int = HIGH) -> int:
     """Play one round of the guessing game. Returns number of tries this round."""
-    secret = random.randint(low, high)
+    """The player tries to guess a randomly selected number between the parameters `low` and `high`.
+    Returns the number of attempts the player took to guess correctly or to give up."""
 
-    # Game intro
-    color_print(f"I'm thinking of a number between {low} and {high}. You have {MAX_TRIES} attempts. (Type 'q' to give up)", "96")
+    # --- Step 2: Difficulty selection ---
+    DIFFICULTIES = {
+        "easy": (1, 50, 10),
+        "medium": (1, 100, 7),
+        "hard": (1, 200, 5)
+    }
+    choice = input("Choose difficulty (easy, medium, hard): ").lower()
+    low, high, max_tries = DIFFICULTIES.get(choice, (low, high, MAX_TRIES))
+    # --------------------------------------
+
+    secret = random.randint(low, high)
+    # Displays the game intro line (colored if c() exists)
+    try:
+        print(c(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts. (Type 'q' to give up)", "96"))
+    except NameError:
+        print(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts.")
 
     tries = 0
-    while tries < MAX_TRIES:
-        result = read_int("Your guess: ")  # may be int or None if user typed 'q'
-
+    # Continues looping guesses until the player runs out of attempts
+    while tries < max_tries:
+        result = read_int("Your guess: ")   # may be int or None if user typed 'q'
+        # Handles user quitting the game
         if result is None:
-            color_print(f"You gave up! The correct number was {secret}.", "95")
+            try:
+                print(c(f"You gave up! The correct number was {secret}.", "95"))
+            except NameError:
+                print(f"You gave up! The correct number was {secret}.")
             return tries
 
         guess = result
         tries += 1
 
+        # Makes sure the guess is within the given range
         if guess < low or guess > high:
-            color_print(f"Out of range! Guess between {low} and {high}.", "95")
-            continue
+            try:
+                print(c(f"Out of range! Guess between {low} and {high}.", "95"))
+            except NameError:
+                print(f"Out of range! Guess between {low} and {high}.")
+            continue # skips to the next iteration without counting the current iteration as a valid attempt
 
-        # Feedback on guess
+        # Gives feedback based on how close the guess is, based on the difference between the guess and the actual number
         diff = abs(guess - secret)
-        if diff <= 3:
-            color_print("🔥 Very close!", "92")
-        elif diff <= 10:
-            color_print("🙂 Close!", "94")
-        else:
-            color_print("❄️ Way off!", "90")
+        try:
+            if diff <= 3:
+                print(c("🔥 Very close!", "92"))      # Green - guess is within 3 units of the secret number
+            elif diff <= 10:
+                print(c("🙂 Close!", "94"))           # blue - guess is within 10 units of the secret number
+            else:
+                print(c("❄️ Way off!", "90"))         # gray - guess is more than 10 units away from the secret number
+        except NameError:
+            if diff <= 3:
+                print("Very close!")
+            elif diff <= 10:
+                print("Close!")
+            else:
+                print("Way off!")
 
         # High/low hints
         if guess < secret:
-            color_print("Too low!", "93")
+            try:
+                print(c("Too low!", "93"))            # yellow
+            except NameError:
+                print("Too low!")
         elif guess > secret:
-            color_print("Too high!", "93")
+            try:
+                print(c("Too high!", "93"))           # yellow
+            except NameError:
+                print("Too high!")
         else:
-            color_print(f"Correct! You got it in {tries} tries.", "92")
+            try:
+                print(c(f"Correct! You got it in {tries} tries.", "92"))  # green
+            except NameError:
+                print(f"Correct! You got it in {tries} tries.")
             return tries
 
-    color_print(f"Out of attempts! The correct number was {secret}.", "91")
-    return tries
+    # Out of attempts
+    try:
+        print(c(f"Out of attempts! The correct number was {secret}.", "91"))  # red
+    except NameError:
+        print(f"Out of attempts! The correct number was {secret}.")
+
+    return tries # returns the total number of tries it took to guess the secret number
