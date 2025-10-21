@@ -65,8 +65,12 @@ py --version
    ```bash
    py guess.py
    ```
-
----
+## How to Play
+1. Run the game in your terminal or IDE.
+2. The computer will pick a secret number between the given range.
+3. Enter your guesses until you find the correct number.
+4. The game will give you hints like “Too high!” or “Very close!”.
+5. You can type `q` anytime to give up and see the correct answer.---
 
 ## Example Output
 ```
