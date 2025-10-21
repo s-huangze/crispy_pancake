@@ -1,7 +1,17 @@
 def play_once(low: int = LOW, high: int = HIGH) -> int:
-    """Play one round of the guessing game. Returns number of tries this round."""
-    """The player tries to guess a randomly selected number between the parameters `low` and `high`.
-    Returns the number of attempts the player took to guess correctly or to give up."""
+
+    # Makes sure the range between low and high is valid to prevent errors
+    if low > high:
+        print("Sorry, the range between the low and high bars is invalid")
+        return -1
+    
+    """
+    Play one round of the guessing game. Returns number of tries this round.
+    
+    The player tries to guess a randomly selected number between the parameters `low` and `high`.
+    Returns the number of attempts the player took to guess correctly or to give up.
+    """
+    
     secret = random.randint(low, high)
     # Displays the game intro line (colored if c() exists)
     try:
@@ -22,7 +32,6 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
             return tries
 
         guess = result
-        tries += 1
 
         # Makes sure the guess is within the given range
         if guess < low or guess > high:
@@ -32,6 +41,9 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
                 print(f"Out of range! Guess between {low} and {high}.")
             continue # skips to the next iteration without counting the current iteration as a valid attempt
 
+        tries += 1
+        # Increments tries after making sure the guess is valid
+        
         # Gives feedback based on how close the guess is, based on the difference between the guess and the actual number
         diff = abs(guess - secret)
         try:
@@ -74,3 +86,4 @@ def play_once(low: int = LOW, high: int = HIGH) -> int:
         print(f"Out of attempts! The correct number was {secret}.")
 
     return tries # returns the total number of tries it took to guess the secret number
+
