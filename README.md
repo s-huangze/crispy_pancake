@@ -80,6 +80,12 @@ Correct! You got it in 3 tries.
 ```
 
 ---
+## Code Structure
+- `guess.py` – main game file  
+- `play_once()` – runs a single round of the game  
+- `read_int()` – safely reads user input  
+- Constants like `LOW`, `HIGH`, and `MAX_TRIES` control game difficulty  
+- Optional color helper `c()` adds colorful text output (if available)
 
 ## How to Change the Range
 In the file `guess.py`, you can edit these two variables:
