@@ -106,7 +106,11 @@ Change them to any range you want (for example, 1–1000).
 - Show how close the guess is (e.g., "very close" or "way off")
 - Limit the number of attempts
 - Add sound or color feedback for fun
-
+## Behind the Scenes
+- The game uses Python’s built-in `random` module to generate the secret number.  
+- A loop keeps asking for guesses until the player wins or runs out of attempts.  
+- Conditional statements decide whether each guess is too high, too low, or correct.  
+- Extra feedback like “Very close!” is based on how far the guess is from the secret number.
 ---
 
 ## How to Contribute
