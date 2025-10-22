@@ -31,6 +31,15 @@ When the player enters a guess, the program tells them whether the guess is too 
 - Lets you play again without restarting the program  
 - Adjustable number range  
 
+## Project Goals
+
+This project was created to:
+- Practice using Python loops and conditional statements  
+- Learn to handle user input safely and avoid crashes  
+- Build confidence with logic-based games  
+- Explore simple debugging and testing  
+- Create a fun way to learn coding basics   
+
 
 ## Tips for Players
 - Start near the middle of the range to narrow your guesses quickly  
