@@ -150,10 +150,13 @@ If you’d like to make this project better:
 
 ---
 
-## Future Plans
-- Add graphical interface using Tkinter
-- Add leaderboard
-- Port to web using Flask
+## Future Learning Ideas
+If you want to keep improving this project, try:
+- Adding a **timer** to track how fast you guess the number  
+- Creating a **scoreboard** to store best results  
+- Letting players choose their own range or difficulty  
+- Turning the game into a **GUI app** using Tkinter  
+- Refactoring code into smaller functions for readability  
 
 ## Author
 Created by **Zelin Huang** for learning and practicing Python basics.
