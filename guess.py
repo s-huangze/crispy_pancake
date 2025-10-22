@@ -1,8 +1,41 @@
+import random
+ 
+LOW = 1
+HIGH = 100
+MAX_TRIES = 7
+ 
+ 
+def c(msg: str, color: str = None):
+    # Dummy color function (replace with real one if available)
+    return msg if not color else f"[{color}] {msg}"
+ 
+ 
 def safe_print(msg: str, color: str = None):
     try:
         print(c(msg, color))
     except NameError:
         print(msg)
+ 
+ 
+def read_int(prompt: str, max_invalid: int = 3):
+    """
+    Reads integer input safely, limits invalid attempts.
+    Returns None if user quits ('q') or too many invalid inputs.
+    """
+    invalid_attempts = 0
+    while True:
+        user_input = input(prompt).strip().lower()
+        if user_input == 'q':
+            safe_print("You gave up. Better luck next time!", "95")
+            return None
+        try:
+            return int(user_input)
+        except ValueError:
+            invalid_attempts += 1
+            safe_print("Invalid input! Enter a number or 'q' to quit.", "95")
+            if invalid_attempts >= max_invalid:
+                safe_print("Too many invalid inputs. Game over!", "91")
+                return None
  
  
 def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> int:
@@ -15,20 +48,18 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
         max_tries = MAX_TRIES
  
     if low > high:
-        safe_print("Sorry, the range between the low and high bars is invalid", "91")
+        safe_print("Invalid range between low and high values!", "91")
         return -1
  
     secret = random.randint(low, high)
-    safe_print(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts. (Type 'q' to give up)", "96")
+    safe_print(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts. (Type 'q' to quit)", "96")
  
     tries = 0
     while tries < max_tries:
-        result = read_int("Your guess: ")
-        if result is None or not isinstance(result, int):
-            safe_print("Invalid input! Please enter a number or 'q' to quit.", "95")
-            continue
+        guess = read_int("Your guess: ")
+        if guess is None:
+            return tries
  
-        guess = result
         if guess < low or guess > high:
             safe_print(f"Out of range! Guess between {low} and {high}.", "95")
             continue
@@ -36,7 +67,6 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
         tries += 1
         diff = abs(guess - secret)
  
-        # Feedback
         if diff <= 3:
             safe_print("🔥 Very close!", "92")
         elif diff <= 10:
@@ -44,13 +74,12 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
         else:
             safe_print("❄️ Way off!", "90")
  
-        # High/low hints
         if guess < secret:
             safe_print("Too low!", "93")
         elif guess > secret:
             safe_print("Too high!", "93")
         else:
-            safe_print(f"Correct! You got it in {tries} tries.", "92")
+            safe_print(f"✅ Correct! You got it in {tries} tries.", "92")
             return tries
  
     safe_print(f"Out of attempts! The correct number was {secret}.", "91")
