@@ -6,7 +6,7 @@ MAX_TRIES = 7
  
  
 def c(msg: str, color: str = None):
-    # Dummy color function (replace with real one if available)
+
     return msg if not color else f"[{color}] {msg}"
  
  
@@ -18,10 +18,7 @@ def safe_print(msg: str, color: str = None):
  
  
 def read_int(prompt: str, max_invalid: int = 3):
-    """
-    Reads integer input safely, limits invalid attempts.
-    Returns None if user quits ('q') or too many invalid inputs.
-    """
+
     invalid_attempts = 0
     while True:
         user_input = input(prompt).strip().lower()
@@ -39,7 +36,6 @@ def read_int(prompt: str, max_invalid: int = 3):
  
  
 def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> int:
-    # Difficulty logic
     if difficulty == "easy":
         max_tries = MAX_TRIES + 3
     elif difficulty == "hard":
@@ -84,3 +80,17 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
  
     safe_print(f"Out of attempts! The correct number was {secret}.", "91")
     return tries
+ 
+ 
+def main():
+    safe_print("🎮 Welcome to the Number Guessing Game!", "96")
+    while True:
+        play_once()
+        again = input("Play again? (y/n): ").strip().lower()
+        if again != 'y':
+            safe_print("Thanks for playing! 👋", "94")
+            break
+ 
+ 
+if __name__ == "__main__":
+    main()
