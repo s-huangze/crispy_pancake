@@ -91,6 +91,13 @@ Correct! You got it in 3 tries.
 - Constants like `LOW`, `HIGH`, and `MAX_TRIES` control game difficulty  
 - Optional color helper `c()` adds colorful text output (if available)
 
+## Common Mistakes
+Here are a few things to watch out for:
+- ❌ Typing letters instead of numbers will cause invalid input messages  
+- ⚙️ Make sure your file name is `guess.py` before running  
+- 💡 Always press **Enter** after typing a guess  
+- 🧮 Remember: the secret number is always within your chosen range!
+
 ## How to Change the Range
 In the file `guess.py`, you can edit these two variables:
 ```python
