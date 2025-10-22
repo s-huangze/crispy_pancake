@@ -4,6 +4,11 @@ This is a simple Python project where the computer randomly picks a number, and 
 
 ---
 
+## Fun Facts
+- The first computer “guessing games” appeared in the **1960s**, written in BASIC.  
+- Games like this helped teach **binary search**, a powerful computer science concept.  
+- Guessing games are often used in beginner coding courses to teach **loops, logic, and debugging**.  
+
 ## Overview
 The goal of this project is to practice using:
 - Loops
