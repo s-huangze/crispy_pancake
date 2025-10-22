@@ -1,5 +1,13 @@
 # Contributing to the High-Low Guessing Game
 
+## Code of Conduct
+To keep this project welcoming for everyone:
+- Be respectful and inclusive in discussions and pull requests.  
+- Give constructive feedback — focus on improving the code, not criticizing the coder.  
+- Help others learn! This is a beginner-friendly project, so patience and kindness go a long way.  
+ 
+By contributing, you agree to follow this Code of Conduct.
+
 Hi and welcome! This is a beginner-friendly Python project for Hacktoberfest. It’s a simple number guessing game — and we’d love your help making it better.
 
 Whether you're new to GitHub or just looking for a fun way to contribute, you're in the right place.
