@@ -84,8 +84,17 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
  
 def main():
     safe_print("🎮 Welcome to the Number Guessing Game!", "96")
+    high_score = None
+ 
     while True:
-        play_once()
+        result = play_once()
+        if result > 0:
+            if high_score is None or result < high_score:
+                high_score = result
+                safe_print(f"🏆 New High Score: {high_score} tries!", "93")
+            else:
+                safe_print(f"Your best so far: {high_score} tries.", "94")
+ 
         again = input("Play again? (y/n): ").strip().lower()
         if again != 'y':
             safe_print("Thanks for playing! 👋", "94")
