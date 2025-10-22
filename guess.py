@@ -6,6 +6,7 @@ MAX_TRIES = 7
  
  
 def c(msg: str, color: str = None):
+
     return msg if not color else f"[{color}] {msg}"
  
  
@@ -17,6 +18,7 @@ def safe_print(msg: str, color: str = None):
  
  
 def read_int(prompt: str, max_invalid: int = 3):
+
     invalid_attempts = 0
     while True:
         user_input = input(prompt).strip().lower()
