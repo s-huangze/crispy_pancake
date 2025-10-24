@@ -23,8 +23,69 @@ def safe_print(msg: str, color: str = None):
         print(c(msg, color))
     except NameError:
         print(msg)
- 
- 
+
+# ===========================
+# Analytics helpers (no extra imports)
+# ===========================
+def _optimal_attempts(low: int, high: int) -> int:
+    """
+    Computes ceil(log2(range_size)) without math import.
+    Uses integer bit_length trick: ceil(log2(n)) = (n-1).bit_length()
+    """
+    n = max(1, (high - low + 1))
+    return (n - 1).bit_length()
+
+def _ascii_trajectory(guesses, secret):
+    """
+    Builds a tiny ASCII bar series showing how close each guess was.
+    Taller bar = closer to the secret.
+    """
+    if not guesses:
+        return ""
+    diffs = [abs(g - secret) for g in guesses]
+    mx = max(diffs)
+    if mx == 0:
+        return "▮" * 10
+    bars = []
+    for d in diffs:
+        # Map diff to 1..10, where smaller diff => taller bar
+        height = 10 - round(9 * d / mx)
+        height = 1 if height < 1 else height
+        bars.append("▮" * height)
+    return " ".join(bars)
+
+def _print_analytics(low, high, tries, secret, guesses, won: bool, quit_early: bool):
+    """
+    Prints post-game analytics: optimal attempts, efficiency, and guess trajectory.
+    Keeps everything dependency-free and consistent with your color tags.
+    """
+    safe_print("— Analytics —", "96")
+    opt = _optimal_attempts(low, high)
+    safe_print(f"Optimal attempts (binary search): {opt}", "94")
+    safe_print(f"Your attempts counted: {tries}", "94")
+
+    if won and tries > 0:
+        # Efficiency is how close you were to optimal in % (higher is better)
+        efficiency = (opt * 100.0) / tries
+        safe_print(f"Efficiency vs. optimal: {efficiency:.1f}%", "94")
+    elif quit_early:
+        safe_print("Efficiency vs. optimal: N/A (quit)", "94")
+    else:
+        # Out of attempts without success
+        safe_print("Efficiency vs. optimal: 0.0% (did not guess)", "94")
+
+    # Per-guess closeness summary
+    if guesses:
+        last_diff = abs(guesses[-1] - secret)
+        best_diff = min(abs(g - secret) for g in guesses)
+        safe_print(f"Best closeness (min |guess - secret|): {best_diff}", "94")
+        safe_print(f"Last guess distance from secret: {last_diff}", "94")
+        safe_print(f"Guess trajectory (closer = taller): { _ascii_trajectory(guesses, secret) }", "94")
+    else:
+        safe_print("No valid guesses to analyze.", "94")
+# ===========================
+
+
 def read_int(prompt: str, max_invalid: int = 3):
     """
     Reads an integer input from the user.
@@ -70,11 +131,15 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
     secret = random.randint(low, high)
     safe_print(f"I'm thinking of a number between {low} and {high}. You have {max_tries} attempts. (Type 'q' to quit)", "96")
 
-    # 
+    # Tracks valid guesses for post-game analytics
     tries = 0
+    guesses = []  # <-- analytics: store each valid guess
+
     while tries < max_tries:
         guess = read_int("Your guess: ")
         if guess is None:
+            # Player quit early: print analytics based on what we have
+            _print_analytics(low, high, tries, secret, guesses, won=False, quit_early=True)
             return tries  # For if user quit
          
         # Validates guess range
@@ -83,6 +148,7 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
             continue
  
         tries += 1  # Counts all valid attempts after checking everything above
+        guesses.append(guess)  # <-- analytics: record valid guess
         diff = abs(guess - secret)
 
         # Feedback on how close the guess was (the number after allows for colors)
@@ -100,10 +166,14 @@ def play_once(low: int = LOW, high: int = HIGH, difficulty: str = "normal") -> i
             safe_print("Too high!", "93")
         else:
             safe_print(f"Correct! You got it in {tries} tries.", "92")
+            # Print analytics on win
+            _print_analytics(low, high, tries, secret, guesses, won=True, quit_early=False)
             return tries  # Correct guess ends the round
 
     # If user ran out of attempts without success
     safe_print(f"Out of attempts! The correct number was {secret}.", "91")
+    # Print analytics on loss
+    _print_analytics(low, high, tries, secret, guesses, won=False, quit_early=False)
     return tries
  
  
@@ -134,4 +204,3 @@ def main():
 # Entry point for script
 if __name__ == "__main__":
     main()
-
