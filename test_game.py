@@ -1,6 +1,10 @@
 """
+Unit tests for the `play_once` function in the guessing game module.
+
 With help/inspiration from other repos
 Comments in each function detail what correctly tested outputs should be
+
+Contributions welcome! If you add new features to the game, please consider adding corresponding tests here.
 """
 
 import unittest
@@ -26,6 +30,16 @@ class TestGuessingGame(unittest.TestCase):
         """play_once with 'hard' difficulty should still return an int"""
         result = play_once(low=1, high=10, difficulty="hard")
         self.assertIsInstance(result, int)
+        
+    def test_single_value_range(self):
+        """Returns the single value when low == high."""
+        result = play_once(low=7, high=7)
+        self.assertEqual(result, 7, "Expected result to equal the only valid number in range")
+
+    def test_non_integer_inputs_raise_error(self):
+        """Raises TypeError when non-integer inputs are used."""
+        with self.assertRaises(TypeError):  # Checks for a TypeError (passes if TypeError is raised)
+            play_once(low="a", high="b")
 
 if __name__ == "__main__":
     unittest.main()
